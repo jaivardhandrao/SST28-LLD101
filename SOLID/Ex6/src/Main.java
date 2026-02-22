@@ -9,14 +9,10 @@ public class Main {
         NotificationSender sms = new SmsSender(audit);
         NotificationSender wa = new WhatsAppSender(audit);
 
+        // All senders now work uniformly - no try/catch needed
         email.send(n);
         sms.send(n);
-        try {
-            wa.send(n);
-        } catch (RuntimeException ex) {
-            System.out.println("WA ERROR: " + ex.getMessage());
-            audit.add("WA failed");
-        }
+        wa.send(n);
 
         System.out.println("AUDIT entries=" + audit.size());
     }
