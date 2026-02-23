@@ -7,17 +7,9 @@ public class Main {
         Exporter csv = new CsvExporter();
         Exporter json = new JsonExporter();
 
-        System.out.println("PDF: " + safe(pdf, req));
-        System.out.println("CSV: " + safe(csv, req));
-        System.out.println("JSON: " + safe(json, req));
-    }
-
-    private static String safe(Exporter e, ExportRequest r) {
-        try {
-            ExportResult out = e.export(r);
-            return "OK bytes=" + out.bytes.length;
-        } catch (RuntimeException ex) {
-            return "ERROR: " + ex.getMessage();
-        }
+        // All exporters now behave consistently - no try/catch needed
+        System.out.println("PDF: OK bytes=" + pdf.export(req).bytes.length);
+        System.out.println("CSV: OK bytes=" + csv.export(req).bytes.length);
+        System.out.println("JSON: OK bytes=" + json.export(req).bytes.length);
     }
 }
